@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Camera : MonoBehaviour
+public class FreeCamera : MonoBehaviour
 {
 	public float rotateSensitivity = 100.0f;
 	public float clampAngle = 80.0f;
