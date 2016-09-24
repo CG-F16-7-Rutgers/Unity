@@ -15,12 +15,13 @@ public class ClickToMove : MonoBehaviour {
 		//left click
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		if (Input.GetMouseButtonDown (0)) {
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow);
+            //Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow);
             if (Physics.Raycast(ray, out hit, 100) && Input.GetKey(KeyCode.LeftControl) && hit.collider)
             {
                 if (hit.collider.tag == "Agent")
                 {
                     agentlist.Add(hit.collider.GetComponent<NavMeshAgent>());
+                    
                 }
             }
             else if (Physics.Raycast(ray, out hit, 100))
@@ -39,3 +40,5 @@ public class ClickToMove : MonoBehaviour {
         }
 	}
 }
+
+ 

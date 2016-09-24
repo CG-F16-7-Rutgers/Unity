@@ -42,7 +42,8 @@ public class FreeCamera : MonoBehaviour
         //rb.AddForce(movement * speed);
         Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
 		transform.rotation = localRotation;
-        if(Input.GetKey(KeyCode.W)) 
+
+        if (Input.GetKey(KeyCode.W))
         { transform.Translate(Vector3.forward * Movespeed, Space.Self); }
         if (Input.GetKey(KeyCode.S))
         { transform.Translate(Vector3.back * Movespeed, Space.Self); }
