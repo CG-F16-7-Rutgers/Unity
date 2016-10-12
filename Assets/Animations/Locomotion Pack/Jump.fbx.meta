@@ -509,16 +509,16 @@ ModelImporter:
     - serializedVersion: 16
       name: Jump
       takeName: Jump
-      firstFrame: 261
-      lastFrame: 338
+      firstFrame: 279
+      lastFrame: 322
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
@@ -533,7 +533,7 @@ ModelImporter:
       transformMask: []
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 256
     isReadable: 1
   meshes:
     lODScreenPercentages: []
