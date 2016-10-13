@@ -3,7 +3,7 @@ using System.Collections;
 
 public class anictrl : MonoBehaviour {
 
-	public Animator Anim;
+	Animator Anim;
 	static int speed = Animator.StringToHash ("Base Layer.speed");
 	static int move = Animator.StringToHash ("Base Layer.move");
 	static int jump = Animator.StringToHash ("Base Layer.jump");
@@ -22,20 +22,20 @@ public class anictrl : MonoBehaviour {
 		//		Anim.SetBool ("move", true);
 		//		Anim.SetFloat ("direct", 0.5f);
 
-		if (Input.GetKeyDown (KeyCode.W)) {
+		if (Input.GetKeyDown (KeyCode.UpArrow)) {
 			Anim.SetBool ("move", true);
 		}
-		else if (Input.GetKeyUp (KeyCode.W)) {
+		else if (Input.GetKeyUp (KeyCode.UpArrow)) {
 			Anim.SetBool ("move", false);
 		}
 
-		else if (Input.GetKey (KeyCode.S)) {
+		else if (Input.GetKey (KeyCode.DownArrow)) {
 			
 			Anim.SetBool ("move", true);
 			float s= Anim.GetFloat ("fb");
 			if(s<1f)	Anim.SetFloat ("fb", s+Time.deltaTime);
 		}
-		else if (Input.GetKeyUp (KeyCode.S)){
+		else if (Input.GetKeyUp (KeyCode.DownArrow)){
 			Anim.SetBool ("move", false);
 			float s = Anim.GetFloat ("fb");
 			if(s>0f)	Anim.SetFloat ("fb", 0);
@@ -43,7 +43,7 @@ public class anictrl : MonoBehaviour {
 			}
 
 
-		if (Input.GetKey (KeyCode.A)) {
+		if (Input.GetKey (KeyCode.LeftArrow)) {
 			float a = Anim.GetFloat ("direct");
 			if(a>0f)	Anim.SetFloat ("direct", a-Time.deltaTime);
 		}
@@ -51,7 +51,7 @@ public class anictrl : MonoBehaviour {
 			float a = Anim.GetFloat ("direct");
 			if(a<0.5f)	Anim.SetFloat ("direct", a+Time.deltaTime);
 		}
-		if (Input.GetKey (KeyCode.D)) {
+		if (Input.GetKey (KeyCode.RightArrow)) {
 			float d = Anim.GetFloat ("direct");
 			if(d<1f)	Anim.SetFloat ("direct", d+Time.deltaTime);
 		}
@@ -76,12 +76,15 @@ public class anictrl : MonoBehaviour {
 			Anim.SetBool ("jump", true);
 //			print (rb.transform.position.y);
 //			print (rb.transform.position);
-			Vector3 v=rb.transform.position;
+			Vector3 v=transform.position;
 			v.y += 0.5f;
-			if (Physics.Raycast (v, Vector3.down, 0.51f))
+			print (v.y);
+			if (Physics.Raycast (v, Vector3.down, 5.0f)) {
+				print ("jump");
 //				print (Anim.velocity.z);
 //				rb.AddForce (new Vector3(Anim.velocity.x*100,200.0f,Anim.velocity.z*100));
-				rb.AddForce (Anim.velocity.x,4.0f,Anim.velocity.z,ForceMode.VelocityChange);
+				rb.AddForce (Anim.velocity.x, 4.0f, Anim.velocity.z, ForceMode.VelocityChange);
+			}
 //			print (rb.transform.position.y);
 		} 
 		if(Input.GetKeyUp (KeyCode.Space)) {
