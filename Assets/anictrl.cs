@@ -78,8 +78,10 @@ public class anictrl : MonoBehaviour {
 //			print (rb.transform.position);
 			Vector3 v=rb.transform.position;
 			v.y += 0.5f;
-			if(Physics.Raycast(v,Vector3.down,0.51f))
-			rb.AddForce (new Vector3(0f,200.0f,0f));
+			if (Physics.Raycast (v, Vector3.down, 0.51f))
+//				print (Anim.velocity.z);
+//				rb.AddForce (new Vector3(Anim.velocity.x*100,200.0f,Anim.velocity.z*100));
+				rb.AddForce (Anim.velocity.x,4.0f,Anim.velocity.z,ForceMode.VelocityChange);
 //			print (rb.transform.position.y);
 		} 
 		if(Input.GetKeyUp (KeyCode.Space)) {
