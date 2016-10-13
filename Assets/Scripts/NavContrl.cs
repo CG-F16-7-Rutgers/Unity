@@ -9,6 +9,7 @@ public class NavContrl : MonoBehaviour {
 	Vector2 velocity = Vector2.zero;
 	public bool dest_flg = false;
 	public bool path_flg = false;
+	public bool run_flg = false;
 	private ArrayList path;
 	private int index;
 	// Use this for initialization
@@ -33,9 +34,7 @@ public class NavContrl : MonoBehaviour {
 			index = 0;
 			path_flg = true;
 			agent.enabled = false;
-			for (int i = 0; i < path.Count; i++) {
-//				print (path [i]);
-			}
+
 		} else {
 			if (index < path.Count - 1&&((Vector3)(path [index]) - transform.position).magnitude <= 0.5f )
 				index++;
@@ -45,14 +44,14 @@ public class NavContrl : MonoBehaviour {
 				anim.SetFloat ("direct", 0.5f);
 				path.Clear ();
 				index = 0;
-
 			}
 
 			if (path.Count != 0) {
 				Vector3 direction = (Vector3)(path [index]) - transform.position;
+				direction.Normalize ();
 				float dir_z = Vector3.Dot (transform.forward, direction);
 				float dir_x = Vector3.Dot (transform.right, direction);
-				Vector2 deltaPosition = new Vector2 (dir_x, dir_z);
+				/*Vector2 deltaPosition = new Vector2 (dir_x, dir_z);
 
 				// Low-pass filter the deltaMove
 				float smooth = Mathf.Min (1.0f, Time.deltaTime / 0.15f);
@@ -67,11 +66,25 @@ public class NavContrl : MonoBehaviour {
 //		anim.SetFloat ("direct", 0.5f);
 				if (velocity.y > 0.0f && velocity.x < 2.1f && velocity.x > -2.1f) {
 					anim.SetBool ("move", true);
+					if (run_flg)
+						anim.SetFloat ("speed", 1.0f);
 					anim.SetFloat ("direct", 0.5f);
 				} else if (velocity.x > 2.1f) {
 					//anim.SetBool ("move", false);
 					anim.SetFloat ("direct", 1.0f);
 				} else if (velocity.x <= -2.1f) {
+					//anim.SetBool ("move", false);
+					anim.SetFloat ("direct", 0.0f);
+				}*/
+				if (dir_z > 0.95f) {
+					anim.SetBool ("move", true);
+					if (run_flg)
+						anim.SetFloat ("speed", 1.0f);
+					anim.SetFloat ("direct", 0.5f);
+				} else if (dir_x > 0.0f) {
+					//anim.SetBool ("move", false);
+					anim.SetFloat ("direct", 1.0f);
+				} else if (dir_x <= 0) {
 					//anim.SetBool ("move", false);
 					anim.SetFloat ("direct", 0.0f);
 				}
