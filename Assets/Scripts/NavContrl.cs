@@ -34,41 +34,47 @@ public class NavContrl : MonoBehaviour {
 			path_flg = true;
 			agent.enabled = false;
 			for (int i = 0; i < path.Count; i++) {
-				print (path [i]);
+//				print (path [i]);
 			}
 		} else {
-			if (((Vector3)(path [index]) - transform.position).magnitude <= 0.5f && index < path.Count - 1)
+			if (index < path.Count - 1&&((Vector3)(path [index]) - transform.position).magnitude <= 0.5f )
 				index++;
+//			print (index+";"+path.Count+".");
 			if(index == path.Count - 1 && ((Vector3)(path[index]) - transform.position).magnitude <= 0.5f){
 				anim.SetBool ("move", false);
 				anim.SetFloat ("direct", 0.5f);
 				path.Clear ();
-			}
-			Vector3 direction = (Vector3)(path[index]) - transform.position;
-			float dir_z = Vector3.Dot (transform.forward, direction);
-			float dir_x = Vector3.Dot (transform.right, direction);
-			Vector2 deltaPosition = new Vector2 (dir_x, dir_z);
+				index = 0;
 
-			// Low-pass filter the deltaMove
-			float smooth = Mathf.Min (1.0f, Time.deltaTime / 0.15f);
-			//print(Time.deltaTime / 0.15f);
-			smoothDeltaPosition = Vector2.Lerp (smoothDeltaPosition, deltaPosition, smooth);
-			//print(smoothDeltaPosition);
-			//print(Time.deltaTime);
-			// Update velocity if delta time is safe
-			if (Time.deltaTime > 1e-5f)
-				velocity = smoothDeltaPosition / Time.deltaTime;
-			//print(velocity.magnitude);
+			}
+
+			if (path.Count != 0) {
+				Vector3 direction = (Vector3)(path [index]) - transform.position;
+				float dir_z = Vector3.Dot (transform.forward, direction);
+				float dir_x = Vector3.Dot (transform.right, direction);
+				Vector2 deltaPosition = new Vector2 (dir_x, dir_z);
+
+				// Low-pass filter the deltaMove
+				float smooth = Mathf.Min (1.0f, Time.deltaTime / 0.15f);
+				//print(Time.deltaTime / 0.15f);
+				smoothDeltaPosition = Vector2.Lerp (smoothDeltaPosition, deltaPosition, smooth);
+				//print(smoothDeltaPosition);
+				//print(Time.deltaTime);
+				// Update velocity if delta time is safe
+				if (Time.deltaTime > 1e-5f)
+					velocity = smoothDeltaPosition / Time.deltaTime;
+				//print(velocity.magnitude);
 //		anim.SetFloat ("direct", 0.5f);
-			if (velocity.y > 0.0f && velocity.x < 2.1f && velocity.x > -2.1f) {
-				anim.SetBool ("move", true);
-				anim.SetFloat ("direct", 0.5f);
-			} else if (velocity.x > 2.1f) {
-				//anim.SetBool ("move", false);
-				anim.SetFloat ("direct", 1.0f);
-			} else if (velocity.x <= -2.1f) {
-				//anim.SetBool ("move", false);
-				anim.SetFloat ("direct", 0.0f);
+				if (velocity.y > 0.0f && velocity.x < 2.1f && velocity.x > -2.1f) {
+					anim.SetBool ("move", true);
+					anim.SetFloat ("direct", 0.5f);
+				} else if (velocity.x > 2.1f) {
+					//anim.SetBool ("move", false);
+					anim.SetFloat ("direct", 1.0f);
+				} else if (velocity.x <= -2.1f) {
+					//anim.SetBool ("move", false);
+					anim.SetFloat ("direct", 0.0f);
+				}
 			}
 		}
 	}
